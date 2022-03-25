@@ -1,0 +1,77 @@
+
+<link rel="stylesheet" href="/public/css/support/subscription.css">
+
+
+<div class="subscription">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+
+				{{#if status}}
+					<article>
+						<h1>Вы подписаны на нашу рассылку!</h1>
+                        <div class="row">
+                            <i class="fa fa-check-circle" aria-hidden="true"></i>
+                        </div>
+
+                        <div class="row">
+							<h2>
+                                Если вы хотите отписаться,
+								Нажмите сюда! <a href="#" onclick="javascript: unsubscribe()">Отписаться</a>.
+							</h2>
+						</div>
+
+					</article>
+				{{else if anonymous}}
+					<article>
+                        <h1>Вы подписаны на нашу рассылку!</h1>
+                        <div class="row">
+                            <i class="fa fa-check-circle" aria-hidden="true"></i>
+                        </div>
+
+                        <div class="row">
+							<h2>
+                                Авторизуйтесь, чтобы отписаться.
+							</h2>
+						</div>
+
+					</article>
+				{{else}}
+					<article>
+						<h1>Вы не подписаны на нашу рассылку</h1>
+                        <div class="row">
+                            <i class="fa fa-close error" aria-hidden="true"></i>
+                        </div>
+
+						<div class="row">
+							<h2>
+                                Если вы хотите получать акции от нас, то
+								{{#if user}}
+									<a href="#" onclick="javascript: subscribe()">подпишитесь</a>.
+								{{/if}}
+							</h2>
+						</div>
+					</article>
+				{{/if}}
+
+			</div>
+		</div>
+	</div>
+</div>
+
+{{#if status}}
+	<script>
+		function unsubscribe() {
+			document.getElementById("form-unsubscribe-it").submit();
+		}
+	</script>
+	<form method="post" action="/support/subscription/unsubscribe" id="form-unsubscribe-it"></form>
+{{else}}
+	<script>
+		function subscribe() {
+			document.getElementById("form-subscribe-it").submit();
+		}
+	</script>
+	<form method="post" action="/support/subscription/subscribe" id="form-subscribe-it"></form>
+{{/if}}
+

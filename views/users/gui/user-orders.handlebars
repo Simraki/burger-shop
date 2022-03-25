@@ -1,0 +1,105 @@
+
+<link rel="stylesheet" href="/public/css/user-gui/user-dashboard.css">
+
+<script src="/public/js/user/gui/orders-settings.js"></script>
+
+
+<article class="dashboard orders">
+    <h1>История заказов</h1>
+
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+
+        <div class="col-md-12">
+
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="orders-transaction">
+                    <h2 class="panel-title">
+                        Заказы
+                    </h2>
+                </div>
+                <div id="orders-transaction-panel" class="panel-collapse collapse in" role="tabpanel"
+                     aria-labelledby="orders-transaction">
+                    <div class="panel-body">
+
+                        {{#if transactions}}
+                            <div class="row">
+
+                                <div class="col-md-2">
+                                    Номер заказа
+                                </div>
+
+
+                                <div class="col-md-1">
+                                    Сумма
+                                </div>
+
+                                <div class="col-md-2">
+                                    Способ
+                                </div>
+
+
+                                <div class="col-md-2">
+                                    Дата
+                                </div>
+
+
+                                <div class="col-md-5">
+                                    Товары
+                                </div>
+                            </div>
+
+                            {{#each transactions}}
+                                <div class="row separate">
+                                    <div class="col-md-2">
+                                        {{_id}}
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        {{amount}}₽
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        {{#if card.number}}
+                                            {{card.number}}
+                                        {{else}}
+                                            {{payMode}}
+                                        {{/if}}
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        {{date}}
+                                    </div>
+
+                                    <div class="col-md-5">
+                                        {{#each items}}
+                                            <ul>
+                                                <li>
+                                                    {{title}}.<br>
+                                                    Цена: {{price}} ₽&nbsp;&nbsp;&nbsp;
+                                                    Кол-во: {{qty}} &nbsp;&nbsp;&nbsp;
+                                                    Итого: {{total}} ₽
+                                                </li>
+                                            </ul>
+                                        {{/each}}
+                                    </div>
+                                </div>
+                            {{/each}}
+
+                            <p class="msg banner">(Последние 10 заказов)</p>
+                        {{else}}
+                            <div class="row">
+                                <p class="msg">Нет заказов</p>
+                            </div>
+                        {{/if}}
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</article>
+<!-- orders dashboard ends here -->

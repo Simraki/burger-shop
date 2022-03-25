@@ -1,0 +1,48 @@
+
+<link rel="stylesheet" href="/public/css/product/product-category.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+<article>
+
+    <h1>• {{ mainTitle }}</h1>
+
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+
+        {{#each product}}
+            <div class="panel panel-default item" onclick="window.location.href = '/product/id/{{_id}}'"
+                 style="cursor: pointer">
+                <div class="panel-heading" role="tab">
+                    <h2 class="panel-title head">
+                        {{title}}
+                    </h2>
+                </div>
+
+                <div class="panel-collapse collapse in" role="tabpanel">
+                    <div class="panel-body">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <img src="{{images.[0]}}" alt="{{title}}"/>
+                            </div>
+                            <div class="row detail">
+                                <div class="col-md-6 price">
+                                    {{price}} ₽
+                                </div>
+                                <div class="col-md-6 weight">
+                                    {{weight}} гр
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+        <!-- right panel section ends here -->
+
+    </div>
+</article>
+<!-- products result ends here -->
+<input type="text" class="form-control hidden" value="{{category}}" id="prod-category">

@@ -1,0 +1,234 @@
+
+<link rel="stylesheet" href="/public/css/payment/payment-gateway.css">
+
+<script src="/public/js/payment/gateway-checkout.js"></script>
+
+
+<div class="gateway">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+
+				<article>
+					<h1>Процесс оплаты!</h1>
+
+
+					<div class="row">
+
+						<ul class="nav nav-tabs">
+							<li role="presentation" class="active">
+								<a href="#saved-card" aria-controls="saved-card" role="tab" data-toggle="tab">
+									<i class="fa fa-credit-card-alt" aria-hidden="true"></i>
+									Сохраненные карты
+								</a>
+							</li>
+							<li role="presentation">
+								<a href="#new-card" aria-controls="new-card" role="tab" data-toggle="tab">
+									<i class="fa fa-credit-card" aria-hidden="true"></i>
+									Новая карта
+								</a>
+							</li>
+							<li role="presentation">
+								<a href="#wallet" aria-controls="wallet" role="tab" data-toggle="tab">
+									<i class="fa fa-wallet" aria-hidden="true"></i>
+									Со счета
+								</a>
+							</li>
+						</ul>
+
+
+						<div class="tab-content">
+
+							<div role="tabpanel" class="tab-pane desc-div active" id="saved-card">
+								<div class="row">
+									{{#if user.card}}
+
+									<div class="col-md-12">
+										<div class="row">
+											<div class="col-md-1"><strong></strong></div>
+											<div class="col-md-4"><strong>Номер карты</strong></div>
+											<div class="col-md-4"><strong>Кардхолдер</strong></div>
+											<div class="col-md-1"><strong>Срок</strong></div>
+											<div class="col-md-2"><strong>Тип карты</strong></div>
+										</div>
+
+										<form id="form-saved-card" method="post" action="/payment/gateway/saved" >
+											{{#each user.card}}
+											<div class="row">
+												<div class="col-md-1" style="text-align:center;">
+													<input type="radio" name="savedCard" value="{{_id}}">
+												</div>
+												<div class="col-md-4">{{_id}}</div>
+												<div class="col-md-4">{{name}}</div>
+												<div class="col-md-1">{{expiry}}</div>
+												<div class="col-md-2">{{type}}</div>
+											</div>
+											{{/each}}
+
+											<input type="text" class="form-control hidden" name="amount" value="{{net}}"/>
+											<div class="row">
+												<div class="col-md-6 col-md-offset-3">
+													<input type="button" id="btn-saved-card" class="btn btn-default" value="Оплатить">
+												</div>
+											</div>
+										</form>
+									</div>
+
+									{{else}}
+									<div>
+										Нет сохраненных карт
+									</div>
+
+									{{/if}}
+								</div>
+							</div>
+
+
+							<div role="tabpanel" class="tab-pane desc-div" id="new-card">
+								<form id="form-new-card" method="post" action="/payment/gateway/new"  >
+
+									<div class="row">
+										<div class="col-md-12">
+											<div id="error-new-card" class="alert alert-danger hidden">
+												<i class="fa fa-close error" id="btn-error-close" onclick="close()"></i>
+												<strong id="error-new-card-message"></strong>
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-md-3">
+											<div class="row"><label for="new-card-number">Номер карты</label></div>
+                                            <div class="row"><label for="new-card-name">Кардхолдер</label></div>
+                                            <div class="row"><label for="new-card-type">Тип карты</label></div>
+											<div class="row"><label for="new-card-month">Срок</label></div>
+											<div class="row"><label for="new-card-cvv">CVV</label></div>
+										</div>
+										<div class="col-md-6">
+                                            <div class="row">
+                                                <input id="new-card-number" type="text" class="form-control" name="cardNumber" placeholder="Номер карты" maxlength="16" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                                            </div>
+											<div class="row">
+												<input id="new-card-name" type="text" class="form-control" name="cardName" placeholder="Кардхолдер">
+											</div>
+											<div class="row">
+												<select class="btn btn-default" name="cardType" id="new-card-type">
+                                                    <option selected disabled>Выберите</option>
+                                                    <option value="Кредитная">Кредитная карта</option>
+                                                    <option value="Дебетовая">Дебетовая карта</option>
+												</select>
+											</div>
+											<div class="row">
+												<input id="new-card-month" type="number" class="form-control" name="expMonth" placeholder="ММ" min="1" max="12" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+												<input id="new-card-year" type="number" class="form-control" name="expYear" placeholder="ГГГГ" min="2022" max="2051" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+											</div>
+											<div class="row">
+												<input id="new-card-cvv" type="password" class="form-control" name="cardCVV" placeholder="CVV" maxlength="4">
+											</div>
+										</div>
+									</div>
+
+									<input type="text" class="form-control hidden" name="amount" value="{{net}}"/>
+									<div class="row">
+										<div class="col-md-6 col-md-offset-3">
+											<input id="btn-new-card" type="button" class="btn btn-default" value="Оплатить">
+										</div>
+									</div>
+								</form>
+							</div>
+
+							<div role="tabpanel" class="tab-pane desc-div" id="wallet">
+								<div class="row">
+
+									<div class="col-md-12">
+										<div class="row">
+
+											<div class="col-md-12">
+												<div class="row" style="text-align: center;">
+													{{#if isWallet}}
+													<div class="col-md-12">
+														<p class="msg">
+															Баланс: {{user.wallet}} ₽
+														</p>
+
+														<form method="post" action="/payment/gateway/wallet" enctype="" >
+															<input type="text" class="form-control hidden" name="amount" value="{{net}}"/>
+															<div class="row">
+																<div class="col-md-6 col-md-offset-3">
+																	<input id="btn-wallet" type="submit" class="btn btn-default" value="Оплатить">
+																</div>
+															</div>
+														</form>
+													</div>
+													{{else}}
+													<div class="col-md-12">
+														<p class="msg">
+															Недостаточно средств на счете<br/>
+															Баланс: {{user.wallet}} ₽
+														</p>
+														<div class="row">
+															<div class="col-md-6 col-md-offset-3">
+																<input type="button" class="btn btn-default" value="Пополнить счет" onclick="addCash()">
+															</div>
+														</div>
+													</div>
+													{{/if}}
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+
+					<br/>
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2" id="payment-summary">
+							<div class="panel panel-default">
+								<div class="panel-heading" id="profile-head">
+										<h2 class="panel-title">
+											Итого
+										</h2>
+								</div>
+
+								<div id="profile-panel" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="profile-head">
+									<div class="panel-body">
+										<div class="row">
+											<div class="col-md-6 col-md-offset-1"><label>Цена</label></div>
+											<div class="col-md-4 col-md-offset-1">
+												{{total}} ₽
+											</div>
+										</div>
+
+										<div class="row">
+											<div class="col-md-6 col-md-offset-1"><label>Доставка (3%)</label></div>
+											<div class="col-md-4 col-md-offset-1">
+												{{tax}} ₽
+											</div>
+										</div>
+
+										<div class="row">
+											<div class="col-md-6 col-md-offset-1"><label>Итого</label></div>
+											<div class="col-md-4 col-md-offset-1">
+												{{net}} ₽
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+
+					</div>
+
+
+				</article>
+
+			</div>
+		</div>
+	</div>
+</div>

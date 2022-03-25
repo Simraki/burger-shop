@@ -1,0 +1,41 @@
+
+<article>
+    <h1>Продукт добавлен в корзину</h1>
+
+    <div class="col-md-4 col-md-offset-4">
+        <div class="row">
+            <div class="panel panel-default item">
+                <div class="panel-heading" id="profile-head">
+                    <h2 class="panel-title">
+                        Добавлено в корзину
+                    </h2>
+                </div>
+
+                <div id="profile-panel" class="panel-collapse collapse in" role="tabpanel"
+                     aria-labelledby="profile-head">
+                    <div class="row">
+                        <i class="fa fa-check-circle" aria-hidden="true" style="font-size: 15rem; color: #32cd32; margin: 2rem 0 2rem"></i>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <input type="button" class="btn btn-default"
+                                       onclick="window.location.href='/user/dashboard/cart'" value="В корзину">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <form method="post" action="/payment/checkout">
+                                    <input type="submit" class="btn btn-default" value="К оплате">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</article>
+

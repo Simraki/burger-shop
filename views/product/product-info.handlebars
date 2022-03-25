@@ -1,0 +1,87 @@
+
+<link rel="stylesheet" href="/public/css/product/product-info.css">
+
+{{#if product}}
+
+	<article class="product info">
+		<h1>{{product.title}}</h1>
+
+
+		<div class="col-md-5">
+			<div class="panel panel-default item">
+				<div id="image-panel" class="panel-collapse collapse in" role="tabpanel">
+					<div class="panel-body" style="padding: 0;">
+						<div class="row">
+							<img src="{{product.images.[0]}}" alt="{{product.title}}" />
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="col-md-12">
+				<div class="row">
+					<form method="post" action="/user/update/cart/{{product._id}}/product-view">
+						<input type="submit" class="btn btn-default" value="Добавить в корзину" />
+					</form>
+				</div>
+			</div>
+		</div>
+
+
+
+		<div class="col-md-7 details">
+
+			<div class="row">
+				<div class="panel panel-default item">
+					<div class="panel-heading" >
+							<h2 class="panel-title">
+								Описание
+							</h2>
+					</div>
+
+					<div  class="panel-collapse collapse in" role="tabpanel" >
+						<div class="panel-body">
+							<div class="col-md-12">
+								<div class="row">
+									{{product.description}}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="row">
+				<div class="panel panel-default item">
+					<div class="panel-heading" >
+							<h2 class="panel-title">
+								Характеристики
+							</h2>
+					</div>
+
+					<div  class="panel-collapse collapse in" role="tabpanel" >
+						<div class="panel-body">
+							<div class="col-md-12">
+								<div class="row">
+									<div class="col-md-4">
+										Вес: <strong>{{product.weight}} гр</strong>
+									</div>
+									<div class="col-md-4" style="text-align: center;">
+										Цена:
+										<strong>{{product.price}} ₽</strong>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+
+	</article>
+
+{{/if}}

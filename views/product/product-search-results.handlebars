@@ -1,0 +1,124 @@
+
+<link rel="stylesheet" href="/public/css/product/product-category.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="/public/js/product/product-search-filter.js"></script>
+
+
+<article>
+
+    <h1>• {{ mainTitle }}</h1>
+
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+
+        <div class="col-md-3">
+
+            <div class="panel panel-default product">
+                <div class="panel-heading" role="tab" id="filter-info">
+                        <h2 class="panel-title">
+                            Фильтр
+                        </h2>
+                </div>
+
+
+                <div id="filter-info-panel" class="panel-collapse collapse in" role="tabpanel"
+                     aria-labelledby="filter-info">
+                    <div class="panel-body">
+                        <div class="col-md-12">
+
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-12" style="padding-left: 0;text-align: left">
+                                        <label for="amount">Мин. цена:</label>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <input type="number" class="search" id="min-search-amount" min="0" placeholder="...">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-12" style="padding-left: 0;text-align: left">
+                                        <label for="amount">Макс. цена:</label>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <input type="number" class="search" id="max-search-amount" min="0" placeholder="...">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <br/>
+                            <div class="row">
+                                <div class="col-md-12" style="text-align: left;">
+                                    <label>Категории:</label>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="controlgroup-vertical" style="width: 100%;">
+
+                                        <label for="all">Все категории</label>
+                                        <input type="radio" name="category" id="all" value="all" checked>
+                                        <label for="burger">Бургеры</label>
+                                        <input type="radio" name="category" id="burger" value="burger">
+                                        <label for="snack">Закуски</label>
+                                        <input type="radio" name="category" id="snack" value="snack">
+                                        <label for="drink">Напитки</label>
+                                        <input type="radio" name="category" id="drink" value="drink">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- filter panel sections ends here -->
+        </div>
+        <!-- left panel section ends here -->
+
+        <!-- right panel section starts from here -->
+        <div class="col-md-9" id="products-list" style="margin-bottom: 3rem;">
+            {{#each product}}
+                <div class="panel panel-default item" onclick="window.location.href = '/product/id/{{_id}}'"
+                     style="cursor: pointer">
+                    <div class="panel-heading" role="tab">
+                        <h2 class="panel-title head">
+                            {{title}}
+                        </h2>
+                    </div>
+
+                    <div class="panel-collapse collapse in" role="tabpanel">
+                        <div class="panel-body">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <img src="{{images.[0]}}" alt="{{title}}"/>
+                                </div>
+
+                                <div class="row detail">
+                                    <div class="col-md-6 price">
+                                        {{price}} ₽
+                                    </div>
+                                    <div class="col-md-6 weight">
+                                        {{weight}} гр
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+        <!-- right panel section ends here -->
+
+    </div>
+</article>
+<!-- products result ends here -->
+<input type="text" class="form-control hidden" value="{{searchedOf}}" id="searched-value">

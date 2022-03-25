@@ -1,0 +1,53 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700,300);
+
+html {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+a h2.head:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+
+.error {
+    color: #a94442;
+}
+
+.success {
+    color: #3c763d;
+}
+
+.alert i:hover {
+    cursor: pointer;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.show {
+    visibility: visible;
+}
+
+
+.ui-button {
+    background-color: #3e444c !important;
+    border: #0009 !important;
+    color: #c8c8c8 !important;
+}
+
+.ui-state-active,
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active,
+a.ui-button:active, .ui-button:active,
+.ui-button.ui-state-active:hover {
+    background-color: #2a2d33 !important;
+    border: #0009 !important;
+}
+
+.ui-icon-background, .ui-state-active .ui-icon-background {
+    width: 12px !important;
+    height: 12px !important;
+    border: #3e444c !important;
+}

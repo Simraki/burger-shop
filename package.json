@@ -1,0 +1,35 @@
+{
+  "name": "burger-shop",
+  "version": "0.0.1",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "start:gg": "PORT=3050 node app.js",
+    "start:dev": "nodemon app.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.2",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.6",
+    "cookie-session": "^2.0.0",
+    "express": "^4.17.3",
+    "express-handlebars": "^6.0.3",
+    "express-passport": "^0.1.0",
+    "express-passport-logout": "^0.1.0",
+    "express-session": "^1.17.2",
+    "handlebars": "^4.7.7",
+    "handlebars-intl": "^1.1.2",
+    "handlebars-paginate": "^0.1.0",
+    "mongodb": "^4.4.1",
+    "passport": "^0.5.2",
+    "passport-local": "^1.0.0",
+    "path": "^0.12.7",
+    "randomstring": "^1.2.2",
+    "svg-captcha": "^1.4.0",
+    "uuid": "^8.3.2",
+    "validator": "^13.7.0",
+    "window-popup": "^1.1.0",
+    "xss": "^1.0.11"
+  }
+}

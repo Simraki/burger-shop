@@ -1,0 +1,47 @@
+
+<link rel="stylesheet" href="/public/css/product/index.css">
+
+<script>
+    function view(id) {
+        window.location.href = `/product/id/${id}`
+    }
+</script>
+
+<article>
+
+    <h1>УБургерная "Семён"</h1>
+
+    <div class="col-md-12" style="margin-bottom: 2rem">
+        <img src="/public/images/cover.jpg" style="width: 75%"/>
+    </div>
+
+    {{#each products}}
+        <div class="panel panel-default item" onclick="window.location.href = '/product/id/{{_id}}'"
+             style="cursor: pointer">
+            <div class="panel-heading">
+                <h2 class="panel-title head">
+                    {{title}}
+                </h2>
+            </div>
+
+            <div class="panel-collapse collapse in" role="tabpanel">
+                <div class="panel-body">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <img src="{{images.[0]}}" alt="{{title}}"/>
+                        </div>
+                        <div class="row detail">
+                            <div class="col-md-4 price">
+                                {{price}} ₽
+                            </div>
+                            <div class="col-md-8 weight">
+                                {{weight}} гр
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{/each}}
+
+</article>

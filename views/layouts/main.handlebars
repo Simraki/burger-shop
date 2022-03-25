@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Бургерная Семён">
+
+    <title>{{ mainTitle }} • "Семён"</title>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/slate/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/public/css/alerts.css">
+    <link rel="stylesheet" href="/public/css/main/header.css">
+    <link rel="stylesheet" href="/public/css/main.css">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+
+<header>
+    <div class="col-md-12">
+        <div class="row">
+            <div class="container">
+
+
+                <nav class="navbar-static-top">
+
+
+                    <div class="navbar-default navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                                data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Навигация</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="/">♦ Семён ♦</a>
+                    </div>
+
+
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-haspopup="true" aria-expanded="false">Категории <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/product/category/burger">Бургеры</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="/product/category/snack">Закуски</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="/product/category/drink">Напитки</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <form class="navbar-form navbar-left" action="/product/search" method="get">
+                            <div class="form-group" id="form-search">
+                                <input type="text" id="searchbar" class="form-control" name="keyword"
+                                       placeholder="Поиск...">
+                            </div>
+                            <button type="submit" class="btn btn-default">Найти</button>
+                        </form>
+                        <label for="searchbar"></label>
+
+                        <ul class="nav navbar-nav navbar-right">
+                            {{#if user}}
+                                <li>
+                                    <a href="/user/dashboard/cart" class="cart-items-number">
+                                        <span id="cart-size">{{#if user.cartLen}}
+                                            <span class="cart">{{ user.cartLen }}</span> {{/if}}</span>
+                                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                        Корзина
+                                    </a>
+                                </li>
+
+                                <li class="dropdown">
+                                    <a href="/user/dashboard" class="dropdown-toggle" data-toggle="dropdown"
+                                       role="button" aria-haspopup="true" aria-expanded="false">
+                                        <span id="user-identity">{{user.alias}}</span>
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="/user/dashboard/account"><i class="fa fa-cog"
+                                                                                 aria-hidden="true"></i>Аккаунт</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li>
+                                            <a href="/user/dashboard/payments"><i class="fa fa-credit-card-alt"
+                                                                                  aria-hidden="true"></i>Карты</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li>
+                                            <a href="/user/dashboard/wallet">
+                                                <i class="fa fa-wallet" aria-hidden="true"></i>
+                                                Кошелек
+                                            </a>
+                                        </li>
+                                        <li role="separator" class="divider"></li>
+                                        <li>
+                                            <a href="/user/dashboard/order-history"><i class="fa fa-shopping-basket"
+                                                                                       aria-hidden="true"></i>Заказы</a>
+                                        </li>
+                                        <li role="separator" class="divider"></li>
+                                        <li>
+                                            <a href="/support/subscription/status">
+                                                <i class="fa fa-newspaper" aria-hidden="true"></i>
+                                                Новости
+                                            </a>
+                                        </li>
+                                        <li role="separator" class="divider"></li>
+                                        <li>
+                                            <a onclick="javascript: logout()" href="#">
+                                                <i class="fa fa-power-off" aria-hidden="true"></i>
+                                                Выйти
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            {{else}}
+                                <li><a href="/user/login"><i class="fa fa-sign-in" aria-hidden="true"></i>Войти</a></li>
+                                <li><a href="/user/new"><i class="fa fa-user-circle-o" aria-hidden="true"></i>Регистрация</a>
+                                </li>
+                            {{/if}}
+                        </ul>
+                    </div>
+
+                </nav>
+
+
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+<main>
+
+    <div class="container">
+        {{{ body }}}
+    </div>
+    <!-- wrapper class ends here -->
+</main>
+<!-- main body ends here -->
+
+<!--footer start from here-->
+<link rel="stylesheet" href="/public/css/main/footer.css">
+<footer>
+    <div class="container">
+        <div class="row">
+
+            <!-- about us starts from here -->
+            <div class="col-md-3">
+                <div class="row"><h3>О нас</h3></div>
+                <div class="row">
+                    <p>Бургерная Семён это тестовый проект, никто так бургерную называть не будет! Я очень
+                        надеюсь........
+                    <p><i class="fa fa-map-pin"></i>г. Томск, ул. Уличная, д. 4</p>
+                </div>
+
+            </div>
+            <!-- about us ends here -->
+
+            <!-- contact us form starts from here -->
+            <script src="/public/js/support/contact-form-validation.js"></script>
+            <div class="col-md-3 col-md-offset-1">
+                <div class="row"><h3>Мы на связи</h3></div>
+
+                <div class="row">
+                    <form id="form-contact-us">
+                        <div class="row">
+
+                            <div class="col-md-12 inp-row-margin">
+                                <div class="row">
+                                    <input type="text" name="name" id="contact-name" class="form-control"
+                                           placeholder="Имя"/>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 inp-row-margin">
+                                <div class="row">
+                                    <input type="text" name="email" id="contact-email" class="form-control"
+                                           placeholder="Email"/>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 inp-row-margin">
+                                <div class="row">
+                                    <input type="text" name="mobile" id="contact-mobile" class="form-control"
+                                           placeholder="Телефон" maxlength="11"
+                                           onkeypress="return event.charCode >= 48 && event.charCode <= 57"/>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 inp-row-margin">
+                                <div class="row">
+                                    <textarea name="description" class="form-control" id="contact-description"
+                                              placeholder="Письмо"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 inp-row-margin">
+                                <div class="row">
+                                    <div class="col-md-4" style="padding-left: 0;">
+                                        <input type="button" id="btn-send" class="btn btn-default btn-full"
+                                               value="Отправить"/>
+                                    </div>
+
+                                    <!-- alert notification -->
+                                    <div class="col-md-8" style="padding-left: 0;">
+                                        <div id="error-contact" class="alert error hidden"
+                                             style="text-align: center; padding: 0;margin-top: 0.8rem;">
+                                            <i class="fa fa-close error"></i>
+                                            <strong id="error-contact-message"></strong>
+                                        </div>
+                                        <div id="success-contact" class="alert success hidden"
+                                             style="text-align: center; padding: 0;margin-top: 0.8rem;">
+                                            <i class="fa fa-check success"></i>
+                                            <strong>Отправлено.</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <label for="contact-name"></label>
+            <label for="contact-email"></label>
+            <label for="contact-mobile"></label>
+            <label for="contact-description"></label>
+            <!-- contact us form ends here -->
+
+            <!-- follow-us and subscription links starts from here -->
+            <div class="col-md-3 col-md-offset-1">
+                <script src="/public/js/support/subscription-form-validation.js"></script>
+                <div class="row"><h3 style="color: white">Подписывайся на рассылку</h3></div>
+                <div class="row">
+                    <form method="post" id="form-subscribe">
+
+                        <div class="col-md-12">
+                            <div class="row">
+                                <input type="text" name="email" id="subscribe-email" class="form-control"
+                                       placeholder="Email"/>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 inp-row-margin">
+                            <div class="row">
+                                <div class="col-md-3" style="padding-left: 0;">
+                                    <input type="button" id="btn-subscribe" class="btn btn-default"
+                                           value="Подписаться"/>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- alert notification -->
+                        <div class="row inp-row-margin">
+                            <div class="col-md-12">
+                                <div id="error-subscribe" class="alert error hidden">
+                                    <i class="fa fa-close error"></i>
+                                    <strong id="error-subscribe-message"></strong>
+                                </div>
+                                <div id="success-subscribe" class="alert success hidden">
+                                    <i class="fa fa-check success"></i>
+                                    <strong>Вы подписались!</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <label for="subscribe-email"></label>
+            <!-- follow-us and subscription links ends here -->
+
+        </div>
+    </div>
+</footer>
+<!--footer start from here-->
+
+<script>
+    function logout() {
+        document.getElementById('form-logout').submit()
+    }
+</script>
+<form method="post" action="/user/logout" id="form-logout"></form>
+
+</body>
+</html>

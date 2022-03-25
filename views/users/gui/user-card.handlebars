@@ -1,0 +1,196 @@
+<!-- stylesheet -->
+<link rel="stylesheet" href="/public/css/user-gui/user-dashboard.css">
+<!-- script -->
+<script src="/public/js/user/gui/card-settings.js"></script>
+
+<!-- payment dashboard starts from here -->
+<article class="dashboard payments">
+	<h1>Карты</h1>
+
+	<!-- user saved card section starts frome here -->
+	<div class="panel panel-default">
+		<div class="panel-heading" id="head-saved-card">
+				<h2 class="panel-title">
+					Сохраненные карты
+				</h2>
+		</div>
+
+		<div id="saved-card-panel" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="head-saved-card">
+			<div class="panel-body">
+
+				<!-- alert notification -->
+				<div class="row">
+					<div class="col-md-12">
+						<div id="success-card-list" class="alert alert-success hidden">
+							<i class="fa fa-check success"></i>
+							<strong>Карта удалена</strong>
+						</div>
+					</div>
+				</div>
+
+				<div id="saved-card-list">
+					{{#if user.card}}
+						<div class="row card-show heading">
+							<!-- card number -->
+							<div class="col-md-3">
+								Номер карты
+							</div>
+
+							<!-- card name -->
+							<div class="col-md-3">
+								Кардхолдер
+							</div>
+
+							<!-- card expiry -->
+							<div class="col-md-2">
+								Срок
+							</div>
+
+							<!-- card type -->
+							<div class="col-md-3">
+								Тип карты
+							</div>
+						</div>
+						{{#each user.card}}
+							<div class="row card-show cards">
+								<!-- card number -->
+								<div class="col-md-3">
+									{{_id}}
+								</div>
+
+								<!-- card name -->
+								<div class="col-md-3">
+									{{name}}
+								</div>
+
+								<!-- card expiry -->
+								<div class="col-md-2">
+									{{expiry}}
+								</div>
+
+								<!-- card expiry -->
+								<div class="col-md-3">
+									{{type}}
+								</div>
+
+								<!-- card delete -->
+								<div class="col-md-1">
+									<i class="fa fa-trash" onclick="deleteCard({{_id}});" title="Удалить"></i>
+									<!--i class="fa fa-trash" data-toggle="modal" data-target="#delete-alert" title="Delete"></i -->
+								</div>
+							</div>
+						{{/each}}
+					{{else}}
+						<div class="row">
+							<p class="msg">Нет сохраненных карт</p>
+						</div>
+					{{/if}}
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- user saved card sections ends here -->
+
+	<!-- user add card section starts frome here -->
+	<div class="panel panel-default">
+		<div class="panel-heading" id="add-card-head">
+				<h2 class="panel-title">
+					Добавить карту
+				</h2>
+		</div>
+
+		<div id="add-card-panel" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="add-card-head">
+			<div class="panel-body">
+
+				<div class="col-md-12">
+					<div class="row">
+
+						<!-- user add payment detail form starts from here -->
+						<form id="form-add-card">
+
+							<!-- alert notification -->
+							<div class="row">
+								<div class="col-md-12">
+									<div id="error-add-card" class="alert alert-danger hidden">
+										<i class="fa fa-close error" id="btn-error-close" onclick="close()"></i>
+										<strong id="error-add-card-message"></strong>
+									</div>
+									<div id="success-add-card" class="alert alert-success hidden">
+										<i class="fa fa-check success"></i>
+										<strong>Карта добавлена</strong>
+									</div>
+								</div>
+							</div>
+
+							<!-- name on card section -->
+							<div class="row">
+								<div class="col-md-4">
+									<label for="card-name">Кардхолдер</label>
+								</div>
+								<div class="col-md-6 col-md-offset-1">
+									<input type="text" class="form-control" name="cardName" id="card-name" placeholder="Иван Иванов" />
+								</div>
+							</div>
+
+							<!-- card number section -->
+							<div class="row">
+								<div class="col-md-4">
+									<label for="card-number">Номер карты</label>
+								</div>
+								<div class="col-md-6 col-md-offset-1">
+									<input type="text" class="form-control" name="cardNumber" id="card-number" maxlength="16"  onkeypress="return event.charCode >= 48 && event.charCode <= 57"  placeholder="Номер" />
+								</div>
+							</div>
+
+							<!-- card type section -->
+							<div class="row">
+								<div class="col-md-4">
+									<label for="card-type">Тип карты</label>
+								</div>
+								<div class="col-md-6 col-md-offset-1">
+									<select class="btn btn-default" name="cardType" id="card-type">
+										<option selected disabled>Выберите</option>
+										<option value="Кредитная">Кредитная карта</option>
+										<option value="Дебетовая">Дебетовая карта</option>
+									</select>
+								</div>
+							</div>
+
+							<!-- card expiry section -->
+							<div class="row">
+								<div class="col-md-4">
+									<label for="card-month">Срок</label>
+									<label for="card-year" class="hidden">Срок</label>
+								</div>
+								<div class="col-md-6 col-md-offset-1">
+									<input type="number" class="form-control" name="cardMonth" id="card-month" min="1" max="12" placeholder="ММ" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+									<input type="number" class="form-control" name="cardYear" id="card-year" min="2022" max="2051" placeholder="ГГГГ" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+								</div>
+							</div>
+
+							<!-- card cvv section -->
+							<div class="row">
+								<div class="col-md-4">
+									<label for="card-cvv">CVV</label>
+								</div>
+								<div class="col-md-6 col-md-offset-1">
+									<input type="password" class="form-control" name="cardCVV" id="card-cvv" placeholder="CVV" maxlength="4" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+								</div>
+							</div>
+
+							<!-- user submit form section -->
+							<input type="button" id="btn-add-card" class="btn btn-default" onclick="addCard()" value="Добавить" />
+
+						</form>
+						<!-- user add payment detail form ends here -->
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- user add card sections ends here -->
+
+</article>
+<!-- payment dashboard ends here -->

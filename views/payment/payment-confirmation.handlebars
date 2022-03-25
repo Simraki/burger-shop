@@ -1,0 +1,50 @@
+
+<link rel="stylesheet" href="/public/css/payment/payment-confirmation.css">
+
+<script>
+    (function (window, location) {
+        history.replaceState(null, document.title, location.pathname + '#!/history')
+        history.pushState(null, document.title, location.pathname)
+
+        window.addEventListener('popstate', function () {
+            if (location.hash === '#!/history') {
+                history.replaceState(null, document.title, location.pathname)
+                setTimeout(() => {
+                    location.reload()
+                }, 0)
+            }
+        }, false)
+    }(window, location))
+</script>
+
+
+<div class="confirmation">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+
+                <article>
+                    <h1>Успешно, {{ user.name }}!</h1>
+                    <div class="row">
+                        <i class="fa fa-check-circle" aria-hidden="true"></i>
+                    </div>
+
+                    <div class="row">
+                        {{#if orderId }}
+                            <h2>
+                                Ваш заказ оплачен
+                            </h2>
+                            <label>Номер заказа #{{ orderId }} </label><br/>
+                        {{else}}
+                            <h2>
+                                Транзакция прошла успешна
+                            </h2>
+                            <label>Номер транзакции #{{ transactionId }} </label>
+                        {{/if}}
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </div>
+</div>
